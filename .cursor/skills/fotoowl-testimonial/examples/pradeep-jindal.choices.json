@@ -1,0 +1,27 @@
+{
+  "customer": {"name": "Pradeep Jindal", "studio": "The Wedding Book"},
+  "wordEdits": {"6": "The", "7": "Wedding", "8": "Book", "12": "FotoOwl", "13": null, "18": "4", "20": "5", "42": "this,", "91": "So,"},
+  "hook": {"from": 24.5667, "to": 27.1333},
+  "keep": [[0.70, 29.7667]],
+  "groups": [[0, 4], [5, 8], [9, 13], [14, 17], [18, 21], [22, 25], [26, 28], [29, 32], [33, 35], [36, 40], [41, 42], [43, 47], [48, 51],
+             [52, 56], [57, 59], [60, 62], [63, 68], [69, 70], [71, 75], [76, 77], [78, 80], [81, 84], [85, 87], [88, 90], [91, 93]],
+  "behind": [12, 46, 50, 81, 87],
+  "hookBehind": 81,
+  "highlight": [12, 18, 19, 20, 21, 31, 32, 46, 47, 49, 50, 51, 81, 82, 83, 84, 86, 87],
+  "italic": [51, 84, 93],
+  "pushIns": [{"from": 14.75, "to": 17.5, "zoom": 1.12}, {"from": 24.45, "to": 27.35, "zoom": 1.14, "settle": 1.07}],
+  "openingReframe": {"zoom": 1.16, "holdUntil": 5.4, "easeTo": 7.0},
+  "lowerThird": {"from": 1.15, "to": 4.55},
+  "cards": [
+    {"type": "stat", "from": 5.95, "to": 8.3, "props": {"eyebrow": "Using FotoOwl for", "value": "almost 4–5 years"}},
+    {"type": "culling", "from": 8.42, "to": 10.0, "props": {"title": "AI Culling", "subtitle": "Selecting your best shots", "photos": ["bride", "groom", "mehndi"], "count": 472}},
+    {"type": "studioManager", "from": 10.0, "to": 11.45, "props": {"title": "Studio Manager", "subtitle": "Your leads, all in one place",
+      "rows": [{"icon": "chat", "title": "New WhatsApp Lead", "sub": "Wedding Photography Enquiry"}, {"icon": "insta", "title": "New Instagram Lead", "sub": "Wedding Shoot Enquiry"}]}},
+    {"type": "clients", "from": 11.55, "to": 14.3, "props": {"title": "Clients select", "subtitle": "They mark album photos. The list comes back to you.",
+      "photos": [{"src": "couple1", "selected": true}, {"src": "bride", "selected": true}, {"src": "decor", "selected": false}, {"src": "couple2", "selected": true}, {"src": "groom", "selected": true}],
+      "countText": "12 photos", "footer": "selected by client", "status": "Received", "showLogo": true}},
+    {"type": "upgrades", "from": 21.95, "to": 24.3, "props": {"title": "New Upgrades", "badge": "NEW", "rows": [{"icon": "sparkle", "label": "AI Studio"}, {"icon": "users", "label": "Studio Manager"}, {"icon": "film", "label": "Reelit"}]}}
+  ],
+  "styles": {"captions": "parallax", "cards": "wide", "outro": "owl"},
+  "music": {"file": "woven-memories.mp3", "db": -20}
+}
