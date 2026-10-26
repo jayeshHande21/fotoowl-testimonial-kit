@@ -37,7 +37,7 @@ bash $S/scripts/setup.sh          # Homebrew ffmpeg/node/python, venv, engine np
 ```bash
 $PY $S/scripts/analyze.py <clip> --slug <slug>        # add --lang hi|mr if not English
 $PY $S/scripts/plate.py --slug <slug>                 # stabilise + grade + 9:16 reframe + face track
-$PY $S/scripts/voice.py --slug <slug>                 # cleaned dialogue
+$PY $S/scripts/voice.py --slug <slug>                 # cleaned + denoised dialogue (default --denoise 10)
 $PY $S/scripts/plan.py --slug <slug> --draft          # choices.json with auto caption phrases
 ```
 Then **read** `work/<slug>/analysis/transcript.md` and **look at** `analysis/sheet.jpg`. Also check `audio.json`, `plate.json` and `face_boxes.json`. Listen for meaning: fix ASR spelling (FotoOwl, names), and for Hindi or Marathi rewrite every word in English letters via `wordEdits` (keep the timings).

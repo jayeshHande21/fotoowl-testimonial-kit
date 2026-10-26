@@ -142,7 +142,7 @@ A standalone copy (`FotoOwl_Outro_OwlEyes_9x16.mp4`) can be rendered with `node 
 
 ## 7. Sound
 
-- **Voice** (`voice.py`): high-pass 80 Hz → light FFT denoise (nr 6; up to 8–12 only in very noisy halls) → −2 dB @ 200 Hz → +2.5 dB @ 3.4 kHz → +1.5 dB shelf @ 9 kHz → 3:1 compression → gentle levelling → −15 LUFS. Natural, never robotic.
+- **Voice** (`voice.py`): high-pass 80 Hz → **FFT denoise on every video** (nr 10, nf −50, adaptive) → −2 dB @ 200 Hz → +2.5 dB @ 3.4 kHz → +1.5 dB shelf @ 9 kHz → 3:1 compression → gentle levelling → −15 LUFS. Natural, never robotic. If the voice sounds thin, drop to nr 8; if a hall is still noisy, raise to nr 12.
 - **Music:** from `assets/music/`, default `woven-memories.mp3`. Other tracks Shantanu adds there can be picked per video. Level **~20 dB under the voice** (`db: −20`), lifting +9 dB across the outro. The planner chooses the start offset so **a soft accent near the end of the track lands on the logo reveal** and the track ends naturally with the video. 0.9 s fade-in, 1.25 s fade-out.
 - **SFX** (quiet, each tied to something on screen, never on an important word):
   - whoosh −17 dB under the cold-open cut

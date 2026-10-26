@@ -70,9 +70,11 @@ def contact_sheet(src: Path, wd: Path, dur: float):
 
 # ── ASR backends ──
 def asr_faster_whisper(wav: Path, lang: str | None):
+    import soundfile as sf
     from faster_whisper import WhisperModel
     m = WhisperModel('large-v3-turbo', device='auto', compute_type='int8')
-    segs, info = m.transcribe(str(wav), language=lang, word_timestamps=True, beam_size=5, vad_filter=False,
+    audio, _ = sf.read(str(wav), dtype='float32')  # PyAV ≥ 15 breaks faster-whisper's own file decoder
+    segs, info = m.transcribe(audio, language=lang, word_timestamps=True, beam_size=5, vad_filter=False,
                               condition_on_previous_text=False)
     words, text = [], []
     for s in segs:

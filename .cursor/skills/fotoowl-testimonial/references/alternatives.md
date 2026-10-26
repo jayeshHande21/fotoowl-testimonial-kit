@@ -48,6 +48,18 @@ If he describes something not on the menu, build it, then add it here as a new a
 | stronger push (1.16–1.2) | sharp 4K vertical sources only |
 | horizontal source: `crop-follow` ↔ `inset` | one person cropped tight vs. both people / the full scene |
 
+## Voice denoise (`voice.py --denoise`)
+
+Always run. Default is **10** (series rule from Nishche / Oct 2026).
+
+| Option | Difference |
+|---|---|
+| **`--denoise 10`** (default) | Clears booth hum and room hiss; voice stays natural |
+| `--denoise 8` | Lighter — use if the voice sounds thin or watery |
+| `--denoise 12` | Stronger — use only if a hall is still noisy after 10 |
+
+Picture stays; remake with `voice.py` → `mix.py` → `deliver.py` (no full re-render).
+
 ## Music (`music`)
 
 | Option | When |
