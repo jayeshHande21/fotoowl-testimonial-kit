@@ -58,7 +58,9 @@ The plate is **stabilised** (vid.stab, smoothing 24) and **lightly graded**: a t
 - Face tracked (YuNet) and kept near **(0.5, 0.42)** of the frame, never revealing a frame edge.
 - **Opening reframe:** if the speaker starts off-centre or low, hold 1.16× until he settles, then ease to 1.0×.
 - **Push-ins:** at most two or three, on the strongest statements. Ease to 1.12–1.14× over 0.6 s, hold for the statement, ease back (or settle at 1.07× near the end).
-- No shaky "influencer" zooms, no zoom on every sentence, no flashy transitions.
+- No shaky "influencer" zooms, no zoom on every sentence, no flashy transitions on every cut.
+- **One restrained HyperFrames grid dissolve** on the cold-open → main cut only (wedding-photo tiles, ~1.0 s).
+- Feature cards may use a **slow photo carousel** (culling, clients, generic feature). The speaker stays the hero.
 
 ---
 

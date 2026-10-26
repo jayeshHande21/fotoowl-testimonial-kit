@@ -32,6 +32,19 @@ If he describes something not on the menu, build it, then add it here as a new a
 | per card: `screenshot` | real product screenshot in a clean frame | Shantanu supplies real UI |
 | timing | move `from` / `to` to other trigger words, or drop a card | "too many", "too early" |
 
+## Motion (HyperFrames ports)
+
+Always on. Keep Linear / Apple restraint — these are the only extra motions.
+
+| Option | Difference |
+|---|---|
+| **Grid dissolve on the hook cut** (default) | Wedding-photo tile dissolve, once, ~1.0 s |
+| No dissolve | Hard cut + whoosh only (if the tiles feel busy) |
+| **Photo carousel on cards** (default) | Culling / clients / feature photos drift slowly |
+| Static tiles | The original still grid (if the drift feels busy) |
+
+Do not add Grid Dissolve, warp, or flash transitions on every sentence.
+
 ## Hook (`hook`)
 
 | Option | When |

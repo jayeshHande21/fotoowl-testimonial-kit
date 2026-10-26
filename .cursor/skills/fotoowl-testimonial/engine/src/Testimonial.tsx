@@ -5,6 +5,7 @@ import {CardLayer, LowerThird} from './Cards';
 import {OwlOutro} from './outros/OwlOutro';
 import {LogoOutro, NavyOutro} from './outros/AltOutros';
 import {Edit, Segment} from './types';
+import {HookCut} from './Transitions';
 import {clampI, fontCss, kf, useFonts} from './util';
 
 /*
@@ -107,6 +108,7 @@ export const Testimonial: React.FC<{edit: Edit}> = ({edit}) => {
       {edit.lowerThird && <LowerThird {...edit.lowerThird} />}
       {ready && <CardLayer cards={edit.cards} style={edit.cardStyle} />}
       {edit.watermark && <Watermark edit={edit} />}
+      <HookCut edit={edit} />
       <Sequence from={edit.outro.startF} durationInFrames={edit.outro.lenF}>
         <Outro />
       </Sequence>

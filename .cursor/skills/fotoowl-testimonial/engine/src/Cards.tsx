@@ -70,6 +70,27 @@ const Stars: React.FC<{size: number; p: number}> = ({size, p}) => (
 );
 const photo = (p: string) => staticFile(p.includes('/') ? p : `photos/${p}.jpg`);
 
+/** Slow looping photo strip — HyperFrames carousel, kept small so the speaker stays the hero. */
+const PhotoCarousel: React.FC<{srcs: string[]; t: number; tIn: number; w: number; h: number; gap?: number; speed?: number}> = ({
+  srcs, t, tIn, w, h, gap = 10, speed = 42,
+}) => {
+  const step = w + gap;
+  const cycle = Math.max(1, srcs.length * step);
+  const x = -(((t - tIn) * speed) % cycle);
+  const copies = [...srcs, ...srcs];
+  return (
+    <div style={{width: '100%', overflow: 'hidden', borderRadius: 16}}>
+      <div style={{display: 'flex', gap, transform: `translateX(${x}px)`, willChange: 'transform'}}>
+        {copies.map((src, i) => (
+          <div key={src + i} style={{width: w, height: h, borderRadius: 14, overflow: 'hidden', flexShrink: 0}}>
+            <Img src={photo(src)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: '18% 50%'}} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 /* ───────── name lower-third ───────── */
 export const LowerThird: React.FC<{name: string; studio?: string; tIn: number; tOut: number}> = ({name, studio, tIn, tOut}) => {
   const {a, b, visible, t} = useAnim(tIn, tOut);
@@ -134,19 +155,14 @@ const CullingCard: React.FC<{c: Card}> = ({c}) => {
           <div style={{height: '100%', width: `${bar * 100}%`, borderRadius: 8, background: `linear-gradient(90deg, ${GOLD}, #F7C657)`}} />
         </div>
       </div>
-      <div style={{display: 'flex', gap: 10}}>
-        {(P.photos as string[]).slice(0, 3).map((p, i) => {
-          const q = rr(t, tIn + 0.2 + i * 0.09, tIn + 0.6 + i * 0.09);
-          return (
-            <div key={p + i} style={{width: 96, height: 136, borderRadius: 15, overflow: 'hidden', opacity: q, transform: `translateY(${(1 - q) * 14}px) scale(${0.92 + 0.08 * q})`}}>
-              <Img src={photo(p)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: '18% 50%'}} />
-            </div>
-          );
-        })}
+      <div style={{display: 'flex', gap: 10, width: 420, flexShrink: 0, alignItems: 'center'}}>
+        <div style={{flex: 1, minWidth: 0}}>
+          <PhotoCarousel srcs={[...(P.photos as string[]), 'haldi', 'flowers']} t={t} tIn={tIn} w={96} h={136} />
+        </div>
         {(() => {
           const q = rr(t, tIn + 0.47, tIn + 0.87);
           return (
-            <div style={{width: 96, height: 136, borderRadius: 15, overflow: 'hidden', position: 'relative', opacity: q, transform: `translateY(${(1 - q) * 14}px)`}}>
+            <div style={{width: 96, height: 136, borderRadius: 15, overflow: 'hidden', position: 'relative', flexShrink: 0, opacity: q, transform: `translateY(${(1 - q) * 14}px)`}}>
               <Img src={photo(P.countPhoto)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: '20% 70%', filter: 'blur(5px) brightness(0.6) saturate(0.6)', transform: 'scale(1.15)'}} />
               <div style={{position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 600, lineHeight: 1.05}}>
                 <div style={{fontSize: 34}}>+</div>
@@ -219,7 +235,6 @@ const ClientsCard: React.FC<{c: Card}> = ({c}) => {
     countText: '12 photos', footer: 'selected by client', status: 'Received',
     ...c.props,
   };
-  let k = 0;
   const foot = rr(t, tIn + 1.15, tIn + 1.5);
   const recv = rr(t, tIn + 1.45, tIn + 1.75, popE);
   return (
@@ -232,17 +247,27 @@ const ClientsCard: React.FC<{c: Card}> = ({c}) => {
         </div>
         {P.showLogo && <Img src={staticFile('brand/logo-full.png')} style={{width: 168, height: 'auto', alignSelf: 'flex-start', marginTop: 6}} />}
       </div>
-      <div style={{display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginTop: 14, padding: 10, borderRadius: 20, background: '#F6F7FA', border: '1.5px solid #ECEDF2'}}>
-        {(P.photos as {src: string; selected: boolean}[]).slice(0, 5).map((ph, i) => {
-          const q = rr(t, tIn + 0.15 + i * 0.06, tIn + 0.5 + i * 0.06);
-          const on = ph.selected ? rr(t, tIn + 0.55 + k++ * 0.15, tIn + 0.8 + (k - 1) * 0.15, Easing.out(Easing.back(2))) : 0;
+      <div style={{marginTop: 14, padding: 10, borderRadius: 20, background: '#F6F7FA', border: '1.5px solid #ECEDF2', overflow: 'hidden'}}>
+        {(() => {
+          const list = (P.photos as {src: string; selected: boolean}[]);
+          const step = 168;
+          const cycle = Math.max(1, list.length * step);
+          const x = -(((t - tIn) * 48) % cycle);
+          const copies = [...list, ...list];
           return (
-            <div key={ph.src + i} style={{position: 'relative', aspectRatio: '1 / 0.9', borderRadius: 16, overflow: 'hidden', opacity: q, transform: `scale(${0.92 + 0.08 * q})`}}>
-              <Img src={photo(ph.src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-              <Badge on={on} />
+            <div style={{display: 'flex', gap: 12, transform: `translateX(${x}px)`}}>
+              {copies.map((ph, i) => {
+                const on = ph.selected ? rr(t, tIn + 0.55 + (i % list.length) * 0.12, tIn + 0.85 + (i % list.length) * 0.12, Easing.out(Easing.back(2))) : 0;
+                return (
+                  <div key={ph.src + i} style={{position: 'relative', width: 156, height: 140, borderRadius: 16, overflow: 'hidden', flexShrink: 0}}>
+                    <Img src={photo(ph.src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                    <Badge on={on} />
+                  </div>
+                );
+              })}
             </div>
           );
-        })}
+        })()}
       </div>
       <div style={{display: 'flex', alignItems: 'center', gap: 18, marginTop: 12, padding: '10px 16px', borderRadius: 20, border: '1.5px solid #ECEDF2', opacity: foot, transform: `translateY(${(1 - foot) * 10}px)`}}>
         <div style={{width: 52, height: 52, borderRadius: 26, background: 'rgba(46,58,80,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}><Icon name="undo" size={26} color={NAVY} /></div>
@@ -309,15 +334,8 @@ const FeatureCard: React.FC<{c: Card}> = ({c}) => {
       {P.image ? (
         <Img src={staticFile(P.image)} style={{height: 150, maxWidth: 300, objectFit: 'contain', borderRadius: 14, boxShadow: '0 4px 14px rgba(20,28,44,0.14)'}} />
       ) : P.photos.length ? (
-        <div style={{display: 'flex', gap: 10}}>
-          {P.photos.slice(0, 3).map((p, i) => {
-            const q = rr(t, tIn + 0.2 + i * 0.09, tIn + 0.6 + i * 0.09);
-            return (
-              <div key={p + i} style={{width: 96, height: 136, borderRadius: 15, overflow: 'hidden', opacity: q, transform: `translateY(${(1 - q) * 14}px)`}}>
-                <Img src={photo(p)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: '18% 50%'}} />
-              </div>
-            );
-          })}
+        <div style={{width: 310}}>
+          <PhotoCarousel srcs={P.photos} t={t} tIn={tIn} w={96} h={136} />
         </div>
       ) : P.showLogo ? (
         <Img src={staticFile('brand/logo-full.png')} style={{width: 168, height: 'auto', alignSelf: 'flex-start'}} />
